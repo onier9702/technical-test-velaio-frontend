@@ -23,7 +23,7 @@ export class TaskService {
     private http: HttpClient,
   ) {}
 
-  saveNewTask(data: ITask): Observable<IMessage> {
+  saveNewTask(data: ITask): Observable<IMessage|any> {
     const url = `${this._baseUrl}/task`;
 
     return this.http.post<IMessage>( url, data )

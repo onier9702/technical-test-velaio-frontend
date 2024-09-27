@@ -1,0 +1,139 @@
+<div class="new_task container">
+  <div class="box">
+    <div class="d-flex justify-content-between">
+      <h3 class="">Nueva tarea</h3>
+      <h4 class="go_back cp" (click)="comeBackToList()">
+        <i class="fa-solid fa-angles-left"></i> Regresar
+      </h4>
+    </div>
+
+    <form class="form" [formGroup]="newTaskForm" (ngSubmit)="saveTask()">
+      <div class="row mb-3">
+        <div class="col-12 col-sm-6 col-lg-6">
+          <label class="w_100" for="name">
+            Nombre tarea <span class="asterisk">*</span>
+          </label>
+          <input class="w_100" formControlName="name" />
+          <small *ngIf="validField('name')" class="text-danger">
+            Nombre de tarea debe contener al menos 3 caracteres
+          </small>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-6">
+          <label class="w_100" for="age">
+            Fecha límite <span class="asterisk">*</span>
+          </label>
+          <input type="date" formControlName="date" />
+          <small *ngIf="validField('date')" class="text-danger">
+            Fecha límite es obligatoria
+          </small>
+        </div>
+      </div>
+
+      <!-- Persons template -->
+      <table class="table table-sm mb-3 mt-5">
+        <thead>
+          <tr>
+            <th class="col-3 text-center">
+              Nombre persona <span class="asterisk">*</span>
+            </th>
+            <th class="col-2 text-center">
+              Edad <span class="asterisk">*</span>
+            </th>
+            <th class="col-4 text-center">
+              Habilidades <span class="asterisk">*</span>
+            </th>
+            <th class="col-2 text-center">
+              Agregar habilidad <span class="asterisk">*</span>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="persons">
+          <tr
+            *ngFor="let person of persons.controls; let i = index"
+            [formGroupName]="i"
+            [id]="'row_' + i"
+          >
+            <td>
+              <input
+                type="text"
+                class="js-choice w_100"
+                formControlName="fullname"
+              />
+            </td>
+            <td>
+              <input type="number" formControlName="age" min="18" />
+            </td>
+            <td>
+              <!-- Abilities Form -->
+              <div formArrayName="abilities">
+                <div
+                  *ngFor="
+                    let ability of getAbilities(i).controls;
+                    let j = index
+                  "
+                  [formGroupName]="j"
+                >
+                  <div class="d-flex align-items-center">
+                    <input
+                      class="ability_input"
+                      type="text"
+                      formControlName="ability"
+                      placeholder="Ability"
+                    />
+                    <i
+                      class="fa-solid fa-trash-can action_icon_trash ms-2 fs-3"
+                      (click)="removeAbility(i, j)"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+              <!-- End Abilities Form -->
+            </td>
+            <td class="text-center">
+              <button
+                class="btn btn-success"
+                (click)="addAbility(i)"
+                type="button"
+              >
+                + Habilidad
+              </button>
+            </td>
+            <td>
+              <a
+                class="d-flex justify-content-center"
+                (click)="removePerson(i)"
+              >
+                <i class="fa-solid fa-trash-can action_icon_trash fs-3"></i>
+              </a>
+            </td>
+          </tr>
+
+          <tr *ngIf="!persons.value.length" class="no-elements">
+            <td colspan="4">
+              No se han añadido personas, presione "+ Adicionar" para incluir al
+              menos una.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- END Persons template -->
+
+      <div *ngIf="incompleteForm" class="d-flex justify-content-start mt-2">
+        <div class="alert alert-warning">
+          {{ incompleteForm }}
+        </div>
+      </div>
+
+      <button (click)="addPerson()" type="button" class="button mt-2">
+        + Adicionar persona
+      </button>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <button class="button mt-5" [disabled]="isFormSubmitting" type="submit">
+          Guardar tarea
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

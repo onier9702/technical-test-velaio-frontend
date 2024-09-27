@@ -7,11 +7,13 @@ import { TaskRoutingModule } from './task-routing.module';
 import { ListTaskComponent } from './list-task/list-task.component';
 import { PaginationComponent } from "../shared/pagination/pagination.component";
 import { HeaderComponent } from "../shared/header/header.component";
+import { NewTaskComponent } from './new-task/new-task.component';
 
 
 @NgModule({
   declarations: [
-    ListTaskComponent
+    ListTaskComponent,
+    NewTaskComponent
   ],
   imports: [
     CommonModule,
