@@ -1,0 +1,53 @@
+.portrait {
+    background-color: var(--black);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)),
+        url(../../../assets/img/portrait.jpeg);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    background-attachment: fixed; /* Keep the background fixed */
+    height: 30rem;
+    position: relative;
+    z-index: 1; /* Set z-index for layering */
+}
+
+.navbar {
+    color: var(--white);
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+    z-index: 998;
+
+    @media (min-width: 768px) { 
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .navbar_menu {
+        display: flex;
+
+        .navbar_link {
+            cursor: pointer;
+            border-bottom: 1px solid var(--white);
+            margin-right: 2rem;
+        }
+    }
+
+    .navbar_title {
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: larger;
+        margin-top: 4rem;
+        max-width: 20rem;
+
+        @media (min-width: 768px) {
+            margin-top: 0;
+            padding-left: 4rem;
+            max-width: unset;
+        }
+    }
+}

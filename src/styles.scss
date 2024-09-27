@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+
+    // Colors
+    --primary: #f77f00;
+    --secondary: #ffd60a;
+    --primary_second: #ffe6a7;
+    --light: #ced4da;
+    --text: #5e646a;
+    --gray: #adb5bd;
+    --black: #000;
+    --white: #fff;
+    --success: #198754;
+    --danger: #ae2012;
+    --warning: #ffc107;
+
+}
+
+@import './_globals.scss';
+@import './normalize';
+@import './_utilities.scss';

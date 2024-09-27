@@ -1,0 +1,153 @@
+<div class="task_list container">
+  <app-header [parentRoute]="'Inicio'" [route]="'Listado tareas'"> </app-header>
+
+  <div class="filters mb-4">
+    <div class="box">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3 class="mb-0">Filtrar tareas</h3>
+        <i
+          *ngIf="filtersOpen"
+          class="fa-solid fa-window-minimize"
+          (click)="openCloseFilters()"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseFilters"
+          aria-expanded="false"
+          aria-controls="collapseFilters"
+        >
+        </i>
+        <i
+          *ngIf="!filtersOpen"
+          class="fa-solid fa-window-maximize"
+          (click)="openCloseFilters()"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseFilters"
+          aria-expanded="false"
+          aria-controls="collapseFilters"
+        >
+        </i>
+      </div>
+      <div class="collapse" id="collapseFilters">
+        <div class="card card-body">
+          <form
+            class="search_form"
+            [formGroup]="searchForm"
+            autocomplete="off"
+            (ngSubmit)="searchFormSubmit()"
+          >
+            <div class="row">
+              <div class="col-12 col-sm-6 col-lg-4">
+                <label class="w_100" for="type">Nombre</label>
+                <input type="text" formControlName="name" />
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <label for="initDate">Fecha desde</label>
+                <input type="date" formControlName="initDate" />
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <label for="initDate">Fecha hasta</label>
+                <input type="date" formControlName="endDate" />
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <label for="storeOrigin">Persona</label>
+                <input type="text" formControlName="person" />
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-start mt-4">
+              <button class="button" type="submit">Filtrar</button>
+              <button
+                class="button_secondary ms-2"
+                type="button"
+                (click)="restartFilters()"
+              >
+                Restablecer filtros
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="row animate__animated animate__fadeIn">
+    <div class="col-12">
+      <div class="alert alert-info text-center" role="alert">
+        <h4 class="alert-heading">Loading</h4>
+        <i class="fa fa-spin fa-refresh fa-2x"></i>
+        <p class="mb-o">Cargando...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hstack">
+    <button type="button" class="button mb-2 ms-2" routerLink="/pages/new-task">
+      Nueva tarea
+    </button>
+  </div>
+
+  <div *ngIf="!isLoading" class="table_clients">
+    <div class="box">
+      <div class="row">
+        <div class="d-flex justify-content-between mb-3">
+          <h3>Listado tareas</h3>
+          <span>Cantidad tareas ({{ total }})</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th class="text-nowrap">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="animate__animated animate__fadeIn">
+              <tr *ngFor="let task of tasks">
+                <td>{{ task.name }}</td>
+                <td>
+                  {{ task.date | date : "yyyy-MM-dd HH:mm" }}
+                </td>
+                <td class="hstack gap-3">
+                  <a
+                    class="ancor_action"
+                    [routerLink]="'/pages/detail-task/' + task.id"
+                    title="Detalle tarea"
+                    data-toggle="tooltip"
+                    data-original-title="Detalle"
+                  >
+                    <i class="fa-solid fa-eye action_icon_see"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <tr *ngIf="!isLoading && !tasks.length">
+                <div class="w-100 d-flex justify-content-start">
+                  <div class="alert alert-warning">
+                    {{
+                      isActiveFilters
+                        ? "Sin resultados para esa búsqueda"
+                        : "No existen tareas por el momento en el sistema"
+                    }}
+                  </div>
+                </div>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- END TABLE -->
+      </div>
+      <!-- END ROW -->
+    </div>
+    <!-- End BOX -->
+  </div>
+
+  <!-- Pagination -->
+  <div *ngIf="total" class="d-flex justify-content-center w_100 mt-4">
+    <app-pagination
+      [total]="total"
+      [factor]="limit"
+      (offsetEmitter)="detectChangeOffset($event)"
+    ></app-pagination>
+  </div>
+</div>

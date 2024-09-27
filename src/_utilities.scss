@@ -1,0 +1,83 @@
+.text_center {
+    text-align: center;
+}
+
+.bg_primary {
+    background-color: var(--primary) !important;
+}
+
+.bg_white {
+    background-color: var(--white);
+}
+
+.w_100 {
+    width: 100%;
+}
+
+.asterisk {
+    color: var(--red);
+    font-size: 1.2rem;
+}
+
+.box {
+    padding: 2.4rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 8px 3px rgb(0 0 0 / .10) ;
+}
+
+
+.muted {
+    color: #adb5bd;
+    font-size: 1rem;
+}
+
+.line_divider {
+    color: var(--primary);
+    height: 3px;
+    width: 100%;
+}
+
+.cp {
+    cursor: pointer;
+}
+
+.text_light {
+    color: var(--text);
+}
+
+// FADE IN Transition
+.fadeIn {
+    animation: fadeInAnimation 0.9s ease-in-out;
+}
+
+@keyframes fadeInAnimation {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+// END FADE IN
+
+// ---------- ANIMATIONS ----------
+.scale_anim {
+    transition-property: transform;
+    transition-duration: .5s;
+}
+.scale_anim:hover {
+    transform: scale(1.08);
+}
+// ---------- END ANIMATIONS ----------
+
+// Margings
+.mt_small {
+    margin-top: 5rem;
+}
+.mt_medium {
+    margin-top: 7rem;
+}
+.mt_large {
+    margin-top: 10rem;
+
+    @media (min-width: 768px) { 
+        margin-top: 14rem;
+    }
+}
+// END Margings

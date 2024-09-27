@@ -1,0 +1,10 @@
+<section class="portrait"></section>
+
+<section class="navbar">
+  <div class="navbar_menu">
+    <li *ngFor="let item of menu" class="navbar_link" [routerLink]="item.url">
+      {{ item.title }}
+    </li>
+  </div>
+  <span class="navbar_title">Welcome to Velaio</span>
+</section>

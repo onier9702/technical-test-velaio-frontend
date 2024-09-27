@@ -1,0 +1,11 @@
+<div class="pagination">
+  <div class="pagination_nav">
+    <div
+      *ngFor="let i of arrPages"
+      [class]="activePage === i ? 'square active_page' : 'square'"
+      (click)="changePage(i)"
+    >
+      {{ i }}
+    </div>
+  </div>
+</div>

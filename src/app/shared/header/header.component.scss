@@ -1,0 +1,21 @@
+.header_component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+    width: 100%;
+
+    @media (min-width: 768px) { 
+        margin-bottom: 5rem;
+    }
+
+    .parent_route {
+        color: var(--text);
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .name_route {
+        text-transform: uppercase;
+    }
+}
