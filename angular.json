@@ -25,7 +25,10 @@
             "inlineStyleLanguage": "scss",
             "allowedCommonJsDependencies": ["sweetalert2"],
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {

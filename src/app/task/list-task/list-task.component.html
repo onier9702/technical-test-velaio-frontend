@@ -36,7 +36,7 @@
           >
             <div class="row">
               <div class="col-12 col-sm-6 col-lg-4">
-                <label class="w_100" for="type">Nombre</label>
+                <label class="w_100" for="name">Nombre</label>
                 <input type="text" formControlName="name" />
               </div>
               <div class="col-12 col-sm-6 col-lg-4">
@@ -44,12 +44,16 @@
                 <input type="date" formControlName="initDate" />
               </div>
               <div class="col-12 col-sm-6 col-lg-4">
-                <label for="initDate">Fecha hasta</label>
+                <label for="endDate">Fecha hasta</label>
                 <input type="date" formControlName="endDate" />
               </div>
               <div class="col-12 col-sm-6 col-lg-4">
-                <label for="storeOrigin">Persona</label>
-                <input type="text" formControlName="person" />
+                <label for="status">Status</label>
+                <select formControlName="status">
+                  <option value="{{ null }}">--Seleccione--</option>
+                  <option value="PENDIENTE">PENDIENTE</option>
+                  <option value="COMPLETADA">COMPLETADA</option>
+                </select>
               </div>
             </div>
 
@@ -98,25 +102,49 @@
             <thead>
               <tr>
                 <th>Nombre</th>
-                <th>Fecha</th>
-                <th class="text-nowrap">Acciones</th>
+                <th>Status</th>
+                <th>Fecha límite</th>
+                <th class="text-nowrap">Personas</th>
+                <th class="text-nowrap">Completar tarea</th>
               </tr>
             </thead>
             <tbody class="animate__animated animate__fadeIn">
               <tr *ngFor="let task of tasks">
                 <td>{{ task.name }}</td>
                 <td>
-                  {{ task.date | date : "yyyy-MM-dd HH:mm" }}
+                  <span
+                    class="{{
+                      task.status === 'PENDIENTE'
+                        ? 'badge text-bg-warning'
+                        : 'badge text-bg-success'
+                    }}"
+                  >
+                    {{ task.status }}
+                  </span>
                 </td>
-                <td class="hstack gap-3">
+                <td>
+                  {{ task.date | utcDate : "yyyy-MM-dd HH:mm" }}
+                </td>
+                <td class="">
                   <a
                     class="ancor_action"
-                    [routerLink]="'/pages/detail-task/' + task.id"
-                    title="Detalle tarea"
+                    (click)="seePersons(task.persons)"
+                    title="Personas"
                     data-toggle="tooltip"
-                    data-original-title="Detalle"
+                    data-original-title="Personas"
                   >
                     <i class="fa-solid fa-eye action_icon_see"></i>
+                  </a>
+                </td>
+                <td class="">
+                  <a
+                    class="ancor_action"
+                    (click)="markTaskAsCompleted(task)"
+                    title="Marcar como completada"
+                    data-toggle="tooltip"
+                    data-original-title="Completar"
+                  >
+                    <i class="fa-solid fa-list action_icon_see"></i>
                   </a>
                 </td>
               </tr>

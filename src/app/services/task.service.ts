@@ -14,11 +14,6 @@ export class TaskService {
 
   private _baseUrl = environment.baseUrl;
 
-  // get getToken() {
-  //   const token = localStorage.getItem(LS.LS_TOKEN_SYSTEM) || '';
-  //   return new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  // }
-
   constructor(
     private http: HttpClient,
   ) {}
@@ -33,12 +28,22 @@ export class TaskService {
       );
   }
 
+  setTaskAsCompleted(taskId: number): Observable<IMessage|any> {
+    const url = `${this._baseUrl}/task/${taskId}`;
+
+    return this.http.patch<IMessage>( url, {} )
+      .pipe(
+        map( resp => resp ),
+        catchError( err => of(err.error) )
+      );
+  }
+
   fetchAllTasks(
     limit: number,
     offset: number,
     filters?: any,
   ): Observable<ICountAndTotalTask> {
-    const url = `${this._baseUrl}/movement/all/paginated`;
+    const url = `${this._baseUrl}/task`;
 
     let params = new HttpParams()
       .set('limit', limit)
@@ -52,7 +57,7 @@ export class TaskService {
       });
     }
 
-    return this.http.get<ICountAndTotalTask>( url )
+    return this.http.get<ICountAndTotalTask>( url, { params } )
       .pipe(
         map( resp => resp ),
         catchError( err => of(err.error) )

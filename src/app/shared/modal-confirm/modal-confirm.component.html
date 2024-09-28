@@ -1,0 +1,16 @@
+<div *ngIf="data" class="modal_confirm">
+  <div class="info">
+    <div class="message">
+      <span class="text_modal">{{ data }}</span>
+    </div>
+
+    <div class="buttons">
+      <button (click)="closePopUp(cancel)" class="button_secondary">
+        Cancelar
+      </button>
+      <button (click)="closePopUp(accept)" class="button ms-2">
+        Continuar
+      </button>
+    </div>
+  </div>
+</div>

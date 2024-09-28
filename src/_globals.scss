@@ -99,11 +99,16 @@ li {
     border: none;
     color: var(--white);
     cursor: pointer;
-    font-size: 1.2rem;
-    padding: 0.9rem 2.8rem;
+    font-size: 1rem;
+    padding: 0.3rem 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.4rem;
     min-width: fit-content;
+
+    @media (min-width: 768px) { 
+        padding: 0.9rem 2.8rem;
+        font-size: 1.2rem;
+    }
 
     &:hover {
         background-color: var(--secondary);
@@ -117,4 +122,9 @@ li {
     &:hover {
         background-color: var(--gray);
     }
+}
+
+// Swal fonts
+.swal2-html-container {
+    font-size: 1.625em !important;
 }

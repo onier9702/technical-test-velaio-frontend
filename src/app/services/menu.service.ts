@@ -9,11 +9,11 @@ export class MenuService {
 
   public menu: any[] = [
     {
-      title: 'Home',
+      title: 'Inicio',
       url: '/pages/home'
     },
     {
-      title: 'Tasks',
+      title: 'Tareas',
       url: '/task/list-tasks'
     },
         

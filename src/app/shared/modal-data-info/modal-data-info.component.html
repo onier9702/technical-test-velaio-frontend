@@ -1,0 +1,26 @@
+<div *ngIf="data" class="modal_info">
+  <h3 class="modal_header">{{ data.length > 1 ? "Personas" : "Persona" }}</h3>
+
+  <div class="info">
+    <div class="message">
+      <div class="person_data" *ngFor="let person of data">
+        <div class="person_name_age">
+          <strong>{{ person.fullname }}</strong>
+          <span class="ms-1"> ({{ person.age }})</span>
+        </div>
+        <ul class="person_abilities">
+          <span class="me-2 text_light">Habilidades</span>
+          <li *ngFor="let ability of person.abilities">
+            <span class="badge text-bg-success me-1">{{
+              ability.ability
+            }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button (click)="closePopUp()" class="button_secondary">Cerrar</button>
+    </div>
+  </div>
+</div>

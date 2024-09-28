@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { TaskService } from '../../services/task.service';
 
+import { ModalDataInfoComponent } from '../../shared/modal-data-info/modal-data-info.component';
+import { ModalConfirmComponent } from '../../shared/modal-confirm/modal-confirm.component';
+
 import { ITask } from '../../interfaces/task.interface';
+import { IPerson } from '../../interfaces/person.interface';
+
 import { Limit } from '../../enum/limit.enum';
+import Swal from 'sweetalert2';
+import { StatusTask } from '../../enum/status-task.enum';
 
 @Component({
   selector: 'app-list-task',
@@ -27,13 +35,14 @@ export class ListTaskComponent {
   public isActiveFilters: boolean = false;
   public searchForm: FormGroup = this.fb.group({
     'name': ['', [] ],
-    'person': ['', [] ],
+    'status': ['', [] ],
     'initDate': ['', [] ],
     'endDate': ['', [] ],
   });
 
   constructor(
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private taskService: TaskService,
   ) { }
 
@@ -83,5 +92,47 @@ export class ListTaskComponent {
     this.offset = offset;
 
     this.fetchAllTasks();
+  }
+
+  seePersons(persons: IPerson[]): void {
+    // Mat Dialog solution
+    let dialogRef = this.dialog.open( ModalDataInfoComponent, {
+      width: '48rem',
+      autoFocus: false,
+      data: persons,
+    } );
+
+    dialogRef.updatePosition({ top: '100px' });
+  }
+
+  markTaskAsCompleted(task: ITask): void {
+    if (task.status === StatusTask.COMPLETED) {
+      Swal.fire('Aviso', 'La tarea ya se encuentra completada', 'warning');
+
+      return;
+    }
+
+    // Mat Dialog solution
+    let dialogRef = this.dialog.open( ModalConfirmComponent, {
+      width: '40rem',
+      height: '22rem',
+      autoFocus: false,
+      data: `¿Estás seguro/a de que deseas marcar como completada esta tarea con nombre: ${task.name} ?`
+    } );
+
+    dialogRef.updatePosition({ top: '100px' });
+    dialogRef.afterClosed().subscribe( resp => {
+      if ( resp ) { // user confirm Cancel or Continue
+        this.taskService.setTaskAsCompleted(task.id)
+          .subscribe( (resp: any) => {
+            if ( resp && resp.msg ) {
+              Swal.fire('Completada', resp.msg, 'success');
+              this.fetchAllTasks();
+            } else {
+              Swal.fire('Error', resp.message , 'error' );
+            };
+          });
+      };
+    });
   }
 }

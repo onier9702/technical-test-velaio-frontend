@@ -1,0 +1,23 @@
+.modal_confirm {
+	border-radius: .5rem;
+	padding: 2rem;
+}
+
+.btn_close {
+	cursor: pointer;
+	color: var(--primary);
+	position: absolute;
+	top: -2.3rem;
+	right: -2.3rem;
+	font-size: 2.6rem;
+}
+
+.message {
+	margin-top: 0.8rem;
+}
+
+.buttons {
+	display: flex;
+	justify-content: flex-end;
+	padding-top: 8rem;
+}

@@ -1,0 +1,41 @@
+.modal_info {
+	border-radius: .5rem;
+	padding: 2rem;
+	position: relative;
+	height: 100%;
+	width: 100%;
+
+	.modal_header {
+		text-transform: uppercase;
+	}
+}
+	
+.btn_close {
+	cursor: pointer;
+	color: var(--primary);
+	position: absolute;
+	top: -1.2rem;
+	right: -1.2rem;
+	font-size: 2.6rem;
+}
+
+.message {
+	margin-top: 0.8rem;
+
+	.person_data {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1rem;
+
+		.person_abilities {
+			display: flex;
+			flex-wrap: wrap;
+		}
+	}
+}
+
+.buttons {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}

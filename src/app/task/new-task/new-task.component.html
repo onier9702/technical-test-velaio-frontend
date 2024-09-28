@@ -1,4 +1,7 @@
 <div class="new_task container">
+  <app-header [parentRoute]="'Listado tareas'" [route]="'Nueva tarea'">
+  </app-header>
+
   <div class="box">
     <div class="d-flex justify-content-between">
       <h3 class="">Nueva tarea</h3>
@@ -9,7 +12,7 @@
 
     <form class="form" [formGroup]="newTaskForm" (ngSubmit)="saveTask()">
       <div class="row mb-3">
-        <div class="col-12 col-sm-6 col-lg-6">
+        <div class="col-12 col-sm-6 col-lg-4">
           <label class="w_100" for="name">
             Nombre tarea <span class="asterisk">*</span>
           </label>
@@ -18,7 +21,7 @@
             Nombre de tarea debe contener al menos 3 caracteres
           </small>
         </div>
-        <div class="col-12 col-sm-6 col-lg-6">
+        <div class="col-12 col-sm-6 col-lg-4">
           <label class="w_100" for="age">
             Fecha límite <span class="asterisk">*</span>
           </label>
@@ -39,13 +42,13 @@
             <th class="col-2 text-center">
               Edad <span class="asterisk">*</span>
             </th>
-            <th class="col-4 text-center">
+            <th class="col-3 text-center">
               Habilidades <span class="asterisk">*</span>
             </th>
             <th class="col-2 text-center">
               Agregar habilidad <span class="asterisk">*</span>
             </th>
-            <th></th>
+            <th class="col-2 text-center">Eliminar persona</th>
           </tr>
         </thead>
         <tbody formArrayName="persons">
@@ -79,7 +82,6 @@
                       class="ability_input"
                       type="text"
                       formControlName="ability"
-                      placeholder="Ability"
                     />
                     <i
                       class="fa-solid fa-trash-can action_icon_trash ms-2 fs-3"
@@ -120,7 +122,7 @@
       <!-- END Persons template -->
 
       <div *ngIf="incompleteForm" class="d-flex justify-content-start mt-2">
-        <div class="alert alert-warning">
+        <div class="alert alert-danger">
           {{ incompleteForm }}
         </div>
       </div>

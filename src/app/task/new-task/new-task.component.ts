@@ -55,7 +55,7 @@ export class NewTaskComponent {
 
   createPersonGroup(): FormGroup {
     return this.fb.group({
-      'fullname': ['', [Validators.required, Validators.minLength(3)] ],
+      'fullname': ['', [Validators.required, Validators.minLength(5)] ],
       'age': [18, [Validators.required, Validators.min(18)] ],
       'abilities': this.fb.array([], [Validators.required]),
     });
@@ -135,7 +135,17 @@ export class NewTaskComponent {
   }
 
   private validatePersonsArray(persons: IPerson[]): boolean {
+    const listNames:string[] = [];
+
     for (const person of persons) {
+      if (listNames.includes(person.fullname)) {
+        this.displayFormError(`Nombre: ${person.fullname} duplicado`);
+
+        return false;
+      }
+
+      listNames.push(person.fullname);
+
       if (person.age < 18) {
         this.displayFormError('Edad de cada persona debe ser mayor o igual a 18');
 
